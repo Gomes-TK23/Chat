@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e2dede;
+    color: #fff;
+    height: 100%;
+}
+
+.chat {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-image:url(/imgFundo.jpg);
+    background-repeat: no-repeat;
+    background-size: 1200px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo ultrapassar a altura máxima */
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+button {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    flex: 1; /* Ocupa o espaço disponível */
+}
+
+input[type="text"] {
+    margin-right: 5px; /* Adiciona um pequeno espaço entre os elementos */
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: auto;
+    border: 1px solid #555;
+}
+
+button:hover {
+    background-color: #9aa1a8;
+}
+
+button::after {
+    font-family: "Font Awesome 5 Free";
+    margin-left: 5px;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Estilo para as mensagens enviadas */
+.direita {
+    text-align: right;
+}
+
+/* Estilo para as mensagens recebidas */
+.esquerda {
+    text-align: left;
+}
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #e4ebf1;
+    color: rgb(0, 0, 0);
+    flex: 1; /* Ocupa o espaço disponível */
+    height: 32px;
+}
+
+input[type="text"]#mensagem {
+    flex-grow: 2; /* O input de mensagem vai ocupar o dobro do espaço do input de nome */
+    width: 250px;
+}
+
+button {
+    background-color: #e4ebf1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: auto;
+    height: auto;
+    border: 1px solid #555;
+}
+form{
+    margin: 0px auto;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+ul{
+    padding: 12px;
+    border-radius: 10px;
+    background-color: rgb(247, 247, 247);
+    color: #1a1a1a;
+    border: 1px solid rgb(0, 0, 0);
+}
+input::placeholder{
+    color: #1a1a1a;
+}

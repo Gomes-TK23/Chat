@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Bocadinha</title>
+</head>
+<body>
+    <div class="chat">
+        
+        
+        <h1 id="nomeCnvs"></h1>
+        <ul id="mensagens"></ul>
+       
+    </div>
+    <form> 
+        <br>
+        <input type="text" id="nome" placeholder="Seu nome de Usuario: ">
+        <input type="text" id="mensagem" placeholder="Digite sua mensagem">
+        <button onclick="Enviar()"><img src="sent.png" alt="" width="30px"></button>
+
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        //sorteio
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var idSorteio = getRandomInt(1, 10000);
+
+        console.log(idSorteio)
+
+      //Criar uma instancia do socket.io
+          const socket = io();
+          //Seleciona o valor do input nome de usuário
+                const nomeInput = document.getElementById('nome');
+                document.querySelector('form').addEventListener('submit', event => {
+                    //Padrão de envios
+                    event.preventDefault();
+
+                    const nome = nomeInput.value;
+                    const mensagem = mensagemInput.value;
+
+                    //Verificar se os valores estão branco
+                    if (nome.trim() && mensagem.trim()) {
+                        socket.emit('chat message', { nome, mensagem,idSorteio });
+                          //Limpar o input da mensagem
+                          mensagemInput.value = '';
+                          //Oculta o input do usuário
+                          nomeInput.style.display = 'none';
+                      }
+                  });
+
+                  //Seleciona o valor do input da mensagem
+                  const mensagemInput = document.getElementById('mensagem');
+                  //Seleciona a lista de mensagens
+                  const mensagens = document.getElementById('mensagens');
+
+                  //Evento de envio do formulário
+                  document.querySelector('form').addEventListener('submit', event => {
+                      //Padrão de envios
+                      event.preventDefault();
+
+                      const nome = nomeInput.value;
+                      const mensagem = mensagemInput.value;
+
+                      //Verificar se os valores estão branco
+                      nome.trim() && mensagem.trim() && socket.emit('chat message', {nome, mensagem});
+                      //Limpar o input da mensagem
+                      mensagemInput.value = '';
+                      //Desabilita o input do usuário
+                      nomeInput.disabled = true;
+                  });
+
+                  socket.on('chat message', dados => {
+                      if(idSorteio == dados.idSorteio){ //Enviada
+                          //Criar um elemento de lista para exibir a mensagem
+                      const lista = document.createElement('li');
+
+                      lista.className = 'direita'
+                      
+                      //Define o texto da mensagem
+                      lista.textContent = `${dados.nome}: ${dados.mensagem}`;
+                      //Adicionar o elemento de lista de mensagem
+                      mensagens.appendChild(lista);
+
+                      }else{ //Recebida
+                      //Criar um elemento de lista para exibir a mensagem
+                      const lista = document.createElement('li');
+                      //Define o texto da mensagem
+                      lista.textContent = `${dados.nome}: ${dados.mensagem}`;
+                      //Adicionar o elemento de lista de mensagem
+                      mensagens.appendChild(lista);
+                      }
+                  });
+    </script>
+
+</body>
+</html>
